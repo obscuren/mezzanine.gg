@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A note about Mezzanine</title>
+<meta name="description" content="A note about why Mezzanine exists, by Jeff.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ece4d3;
+    --paper-2: #e2d9c4;
+    --ink: #1f1d1a;
+    --ink-2: #4a4640;
+    --ink-3: #8a8478;
+    --primary: #c84a2c;
+    --secondary: #3b6b6e;
+    --accent: #d9a23d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* top bar — minimal, same as holding page */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-2);
+    padding: 14px 28px;
+    border-bottom: 1.5px solid var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .topbar a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .topbar a:hover { color: var(--ink); }
+  .topbar .wordmark-small {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    color: var(--ink);
+    letter-spacing: 0.015em;
+  }
+  .topbar .wordmark-small .gg {
+    color: var(--primary);
+    font-size: 12px;
+    vertical-align: 6px;
+    margin-left: 2px;
+  }
+
+  /* main reading column */
+  main {
+    flex: 1;
+    padding: 64px 32px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  article {
+    max-width: 660px;
+    width: 100%;
+  }
+
+  /* eyebrow */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  /* title */
+  h1 {
+    font-family: 'Newsreader', serif;
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+    color: var(--ink);
+    margin-bottom: 48px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  /* prose */
+  article p, article ul {
+    font-family: 'Newsreader', serif;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.1em;
+  }
+  article p:first-of-type {
+    font-family: 'Newsreader', serif;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 1em;
+    letter-spacing: -0.01em;
+  }
+  article p strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  article p em {
+    font-style: italic;
+    color: var(--ink-2);
+  }
+
+  /* section breaks */
+  h2 {
+    font-family: 'Newsreader', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 56px 0 20px;
+    padding-top: 28px;
+    border-top: 1px solid var(--ink-3);
+    letter-spacing: -0.005em;
+  }
+  h2:first-of-type { margin-top: 48px; }
+
+  /* commitment list */
+  .commitments p {
+    margin-bottom: 1.4em;
+  }
+  .commitments p strong {
+    display: block;
+    color: var(--primary);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  /* small ask paragraph emphasis */
+  .small-ask p:last-of-type {
+    padding-top: 12px;
+    margin-top: 24px;
+    border-top: 1px dotted var(--ink-3);
+    font-style: italic;
+    color: var(--ink-2);
+  }
+
+  /* signature */
+  .signature {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1.5px solid var(--ink);
+    font-family: 'Newsreader', serif;
+  }
+  .signature .name {
+    font-size: 24px;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .signature .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .signature .role a {
+    color: var(--ink-3);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-3);
+  }
+  .signature .role a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* back link */
+  .back {
+    margin-top: 64px;
+    text-align: center;
+  }
+  .back a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    text-decoration: none;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid var(--ink-3);
+    transition: all 0.15s;
+  }
+  .back a:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  /* footer */
+  .footer {
+    padding: 14px 28px;
+    border-top: 1.5px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .footer a:hover { color: var(--ink); }
+
+  /* mobile */
+  @media (max-width: 600px) {
+    main { padding: 40px 20px 32px; }
+    h1 { font-size: 38px; margin-bottom: 32px; }
+    article p:first-of-type { font-size: 22px; }
+    article p, article ul { font-size: 17px; }
+    h2 { font-size: 22px; margin: 40px 0 16px; padding-top: 20px; }
+    .topbar { padding: 12px 16px; font-size: 10px; }
+    .footer { padding: 12px 16px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="/" class="wordmark-small">mezzanine<span class="gg">.gg</span></a>
+    <span>↩ <a href="/">Back to the front</a></span>
+  </div>
+
+  <main>
+    <article>
+      <div class="eyebrow">— A note from the operator —</div>
+      <h1>A note about <em>Mezzanine</em></h1>
+
+      <p>I'm tired.</p>
+
+      <p>I'm tired of opening apps that show me things I didn't ask to see. I'm tired of follower counts deciding whose work matters. I'm tired of every creative act getting routed through a system that asks how much it can earn or how fast it can grow. I'm tired of the algorithm in the middle of everything, deciding what a million people will spend their afternoon looking at. I'm tired of the slow flattening of the web into five sites that all look the same and feel the same and want the same thing from me.</p>
+
+      <p>I miss when the internet had places. Small, weird, specific places, run by specific people, full of things that someone bothered to make because they thought it would be funny or strange or beautiful. Places where you could put something up and not have it judged by a metric the moment you hit publish. Places that had a vibe — not a brand, a vibe — because a person was paying attention to them.</p>
+
+      <p>That web isn't coming back. But the conditions that made it good are still possible to recreate, if you're willing to make a few unpopular decisions and stick to them.</p>
+
+      <p>Mezzanine is my attempt at that.</p>
+
+      <h2>What this place is</h2>
+
+      <p>A small venue on the internet for animations, toys, games, comics, music videos, and other made-by-hand experiments. Mostly short things. Mostly weird things. Things that exist because their makers thought they'd be fun to make.</p>
+
+      <p>Anyone can upload. Anyone can watch. You don't need an account to look around. You don't need a real name. You don't need a portfolio or a brand or a follower count anywhere else. You just need something to put up.</p>
+
+      <p>I run it. I'm one person. I'll be reading comments and picking weekly highlights and answering emails. When something on Mezzanine moves me, I'll say so. When something is great, I'll put it on the front page. The curation will be obviously human, sometimes wrong, always personal.</p>
+
+      <h2>What I promise</h2>
+
+      <div class="commitments">
+        <p><strong>No ads, ever.</strong> Not on the homepage, not on any creator's work, not in any form. If Mezzanine ever needs to be funded, I'll figure that out somewhere visible to you — donations, my own pocket, a small Patreon for hosting costs. Money will never be the point of being here.</p>
+
+        <p><strong>No algorithm.</strong> What you see is what was recently uploaded, what someone you follow posted, or what I picked. There is no recommender system. There is no "for you." There is no engagement optimization happening behind the scenes. You're not being managed.</p>
+
+        <p><strong>No public follower counts. No public likes.</strong> Creators can see their own numbers if they want. Nobody else can. Status here doesn't come from metrics.</p>
+
+        <p><strong>No selling your data.</strong> I'll collect the minimum needed to make the site work. Nothing gets sold. Nothing goes to advertisers. The only analytics are edge-level and aggregate.</p>
+
+        <p><strong>No "real name" policy.</strong> Be whoever you want to be. Pseudonyms are welcome. Multiple accounts are fine. Email is for account recovery only.</p>
+
+        <p><strong>Your work stays up.</strong> As long as Mezzanine exists, what you posted stays accessible. If I ever can't run it anymore, I'll give plenty of notice and help everyone export their work. This place is not a content silo. You can leave any time with everything you brought.</p>
+
+        <p><strong>Creative work is creative work.</strong> I don't care how you made it. Drew it by hand, animated it in Spark, used AI to fill in the gaps, coded it from scratch, recorded it in your basement — none of that matters to me. What matters is that you bothered to make it and you think it's worth showing.</p>
+      </div>
+
+      <h2>What I'll remove</h2>
+
+      <p>CSAM. Harassment. Doxxing. Malware. Spam. Content that exists to hurt specific people. The usual things, handled by one human (me), imperfectly but with care.</p>
+
+      <p>If you're unsure whether something belongs here, email me. I read everything.</p>
+
+      <h2>A small ask</h2>
+
+      <div class="small-ask">
+        <p>Mezzanine works if people who care actually show up. If you make weird stuff, please put some of it here. If you like what someone made, tell them in the comments. If you find something great, send it to a friend. None of this requires effort, and all of it makes the place real.</p>
+
+        <p>I built this because I wanted somewhere on the internet that didn't make me feel worse for being there. Maybe you want the same thing. If so, welcome upstairs.</p>
+      </div>
+
+      <div class="signature">
+        <div class="name">— Jeff</div>
+        <div class="role">operator · <a href="mailto:hello@mezzanine.gg">hello@mezzanine.gg</a></div>
+      </div>
+
+      <div class="back">
+        <a href="/">← back to the front</a>
+      </div>
+    </article>
+  </main>
+
+  <div class="footer">
+    <span>Made by hand · Run by humans</span>
+    <span>mezzanine.gg/manifesto</span>
+  </div>
+
+</body>
+</html>
